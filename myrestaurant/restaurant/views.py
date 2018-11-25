@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
+from rest_framework import generics
+import json
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -17,17 +19,11 @@ def api_root(request, format=None):
     })
 
 class RestaurantList(APIView):
-    def get(self, request, format=None):
-        restaurants = Restaurant.objects.all()
-        serializer = RestaurantSerializer(restaurants, many=True)
-        return Response(serializer.data)
-
     def post(self, request, format=None):
-        serializer = RestaurantSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        kwargs = request.data
+        data = Restaurant.objects.filter(**kwargs)
+        serializer = RestaurantSerializer(data, many=True)
+        return Response(serializer.data)
 
 class RestaurantDetail(APIView):
     def get_object(self, pk):
