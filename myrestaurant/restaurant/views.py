@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework import generics
+from django_filters import rest_framework as filters
 import json
 
 @api_view(['GET'])
@@ -18,12 +19,26 @@ def api_root(request, format=None):
         'affordability': reverse('affordability-list', request=request, format=format),
     })
 
-class RestaurantList(APIView):
-    def post(self, request, format=None):
-        kwargs = request.data
-        data = Restaurant.objects.filter(**kwargs)
-        serializer = RestaurantSerializer(data, many=True)
-        return Response(serializer.data)
+# class RestaurantList(APIView):
+#     def post(self, request, format=None):
+#         kwargs = request.data
+#         data = Restaurant.objects.filter(**kwargs)
+#         serializer = RestaurantSerializer(data, many=True)
+#         return Response(serializer.data)
+
+class RestaurantFilter(filters.FilterSet):
+    cuisine_type = filters.AllValuesMultipleFilter()
+    outlet_type = filters.AllValuesMultipleFilter()
+    affordability = filters.AllValuesMultipleFilter()
+
+    class Meta:
+        model = Restaurant
+        fields = ['cuisine_type', 'outlet_type', 'affordability','halal']
+
+class RestaurantList(generics.ListAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    filterset_class = RestaurantFilter
 
 class RestaurantDetail(APIView):
     def get_object(self, pk):
