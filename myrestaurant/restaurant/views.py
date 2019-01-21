@@ -27,18 +27,20 @@ def api_root(request, format=None):
 #         return Response(serializer.data)
 
 class RestaurantFilter(filters.FilterSet):
-    cuisine_type = filters.AllValuesMultipleFilter()
-    outlet_type = filters.AllValuesMultipleFilter()
-    affordability = filters.AllValuesMultipleFilter()
+    cuisine_type = filters.ModelMultipleChoiceFilter(queryset=CuisineType.objects.all())
+    outlet_type = filters.ModelMultipleChoiceFilter(queryset=OutletType.objects.all())
+    affordability = filters.ModelMultipleChoiceFilter(queryset=Affordability.objects.all())
 
     class Meta:
         model = Restaurant
-        fields = ['cuisine_type', 'outlet_type', 'affordability','halal']
+        fields = ['cuisine_type', 'outlet_type', 'affordability', 'halal', 'vegan_friendly']
 
 class RestaurantList(generics.ListAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = RestaurantFilter
+
 
 class RestaurantDetail(APIView):
     def get_object(self, pk):

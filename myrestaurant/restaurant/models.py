@@ -19,15 +19,6 @@ class OpeningTime(models.Model):
         return self.WEEKDAYS[self.weekday - 1][1] + " " + str(self.from_hour) + "-" + str(self.to_hour)
 
 class OutletType(models.Model):
-    # OUTLET_TYPE_CHOICES = (
-    #     ('BR', 'Bar'),
-    #     ('BV', 'Beverage'),
-    #     ('CF', 'Cafe / Coffee Shop'),
-    #     ('DS', 'Dessert'),
-    #     ('FF', 'Fast Food'),
-    #     ('FC', 'Food Court'),
-    #     ('RS', 'Restaurant'),
-    # )
     outlet_type = models.CharField(max_length=20)
     def __str__(self):
         return self.outlet_type

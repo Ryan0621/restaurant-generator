@@ -3,7 +3,7 @@ from .models import Restaurant, OpeningTime, OutletType, Affordability, CuisineT
 from address.models import AddressField
 from address.forms import AddressWidget
 
-# Register your models here. 
+# Register your models here.
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
 
@@ -28,7 +28,11 @@ class RestaurantAdmin(admin.ModelAdmin):
         }
 }
 
-admin.site.register(OutletType)
+@admin.register(OutletType)
+class OutletTypeAdmin(admin.ModelAdmin):
+
+    list_display = ('id', 'outlet_type')
+
 admin.site.register(CuisineType)
 admin.site.register(OpeningTime)
 admin.site.register(Affordability)
