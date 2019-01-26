@@ -25,8 +25,8 @@ SECRET_KEY = '0xj134a$bi_9a6*ed02p^=^j58!s$q+eq4l7#vu%pcvjnk!0x0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
-CORS_ORIGIN_WHITELIST = ['127.0.0.1:3000', 'localhost:3000']
+ALLOWED_HOSTS = ['127.0.0.1', '138.197.195.122']
+CORS_ORIGIN_WHITELIST = ['127.0.0.1:3000', 'localhost:3000', '138.197.195.122:3000']
 
 # Application definition
 
@@ -81,11 +81,14 @@ WSGI_APPLICATION = 'myrestaurant.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'restaurant-generator',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -124,6 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 GOOGLE_API_KEY = 'AIzaSyD-8FXmzbJljYrb2wfgjOEIY3E9JP3t78M'
 
