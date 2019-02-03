@@ -25,8 +25,8 @@ SECRET_KEY = '0xj134a$bi_9a6*ed02p^=^j58!s$q+eq4l7#vu%pcvjnk!0x0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '138.197.195.122']
-CORS_ORIGIN_WHITELIST = ['127.0.0.1:3000', 'localhost:3000', '138.197.195.122:3000']
+ALLOWED_HOSTS = ['127.0.0.1', '138.197.195.122', 'restaurantgen.ryanchan.xyz']
+CORS_ORIGIN_WHITELIST = ['127.0.0.1:3000', 'localhost:3000', '138.197.195.122:3000', 'restaurantgen.ryanchan.xyz']
 
 # Application definition
 
