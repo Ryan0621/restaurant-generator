@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from restaurant.models import * 
+from restaurant.models import *
 from address.models import Address
 
 class OutletTypeSerializer(serializers.ModelSerializer):
@@ -18,9 +18,28 @@ class AffordabilitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OpeningTimeSerializer(serializers.ModelSerializer):
+    WEEKDAYS = (
+       (1, 'Monday'),
+       (2, 'Tuesday'),
+       (3, 'Wednesday'),
+       (4, 'Thursday'),
+       (5, 'Friday'),
+       (6, 'Saturday'),
+       (7, 'Sunday'),
+    )
+    weekday_display = serializers.CharField(source='get_weekday_display')
+
+    from_hour = serializers.TimeField(format=('%I:%M %p'))
+    to_hour =  serializers.TimeField(format=('%I:%M %p'))
+
+    # def get_weekday_name(self, obj):
+    #     return obj.get_weekday_display()
+    #
+    # weekday_name = serializers.SerializerMethodField(read_only=True, source='get_weekday_name')
+
     class Meta:
         model = OpeningTime
-        fields = '__all__'
+        fields = ('id', 'weekday', 'weekday_display', 'from_hour', 'to_hour')
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
